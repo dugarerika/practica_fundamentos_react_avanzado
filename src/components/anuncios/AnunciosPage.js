@@ -17,7 +17,9 @@ class AnunciosPage extends React.Component {
 	};
 
 	handlefilter = (generatedAnuncio) =>
-		this.setState({ anuncios: generatedAnuncio.result.rows });
+		this.setState({
+			anuncios: generatedAnuncio.result.rows
+		});
 
 	async componentDidMount() {
 		this.getAnuncios();
@@ -28,7 +30,12 @@ class AnunciosPage extends React.Component {
 		const { generatedAnuncios } = this.state;
 		console.log(generatedAnuncios);
 
-		return <Filtro onfilter={this.handlefilter} history={history} />;
+		return (
+			<Filtro
+				onfilter={this.handlefilter}
+				history={history}
+			/>
+		);
 	}
 
 	renderContent() {
@@ -48,19 +55,25 @@ class AnunciosPage extends React.Component {
 		}
 
 		return anuncios.map((anuncio) => (
-			<Anuncio key={anuncio._id} anuncio={anuncio} history={history} />
+			<Anuncio
+				key={anuncio._id}
+				anuncio={anuncio}
+				history={history}
+			/>
 		));
 	}
 
 	render() {
 		console.log(this.state.anuncios);
 		return (
-			<div>
-				<Layout title='Lista de Anuncios'>
-					<div className='AnunciosPage'>{this.renderFiltro()}</div>
-					<div className='AnunciosPage'>{this.renderContent()}</div>
-				</Layout>
-			</div>
+			<Layout title='Lista de Anuncios'>
+				<div className='AnunciosPage'>
+					{this.renderFiltro()}
+				</div>
+				<div className='AnunciosPage'>
+					{this.renderContent()}
+				</div>
+			</Layout>
 		);
 	}
 }

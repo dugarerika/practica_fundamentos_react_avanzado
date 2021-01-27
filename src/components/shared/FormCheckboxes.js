@@ -15,10 +15,16 @@ class FormCheckboxes extends React.Component {
 	};
 
 	render() {
-		const { label, value, name, type, ...props } = this.props;
+		const {
+			label,
+			value,
+			name,
+			type,
+			...props
+		} = this.props;
 		const { infoTags } = this.state;
 		return (
-			<div>
+			<React.Fragment>
 				{infoTags.map((item) => (
 					<label key={item.id}>
 						<input
@@ -31,7 +37,7 @@ class FormCheckboxes extends React.Component {
 						{item.value}
 					</label>
 				))}
-			</div>
+			</React.Fragment>
 		);
 	}
 }

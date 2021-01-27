@@ -1,6 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { deleteDetalleAnuncio, getDetalleAnuncio } from '../../API/anuncios';
+import {
+	deleteDetalleAnuncio,
+	getDetalleAnuncio
+} from '../../API/anuncios';
 import Layout from '../layout/Layout';
 import Anuncio from '../anuncios/Anuncio';
 import Imagen from '../shared/Imagen';
@@ -11,7 +14,8 @@ import Container from '../shared/Container';
 class AnuncioPage extends React.Component {
 	state = {
 		anuncio: null,
-		error: null
+		error: null,
+		isFectching: false
 	};
 
 	deleteDetalle = () => {
@@ -24,9 +28,11 @@ class AnuncioPage extends React.Component {
 
 	getDetalle = async () => {
 		const { anuncioID } = this.props.match.params;
+		this.setState({ isFectching: true });
 		getDetalleAnuncio(anuncioID)
 			.then((anuncio) => this.setState({ anuncio }))
-			.catch((error) => this.setState({ error }));
+			.catch((error) => this.setState({ error }))
+			.finally(() => this.setState({ isFectching: false }));
 	};
 
 	componentDidMount() {
@@ -47,7 +53,11 @@ class AnuncioPage extends React.Component {
 				<div className='left'>
 					<Imagen src={anuncio.result.photo} />
 				</div>
-				<Anuncio key={anuncio._id} anuncio={anuncio.result} history={history} />
+				<Anuncio
+					key={anuncio._id}
+					anuncio={anuncio.result}
+					history={history}
+				/>
 			</div>
 		);
 	}
@@ -55,7 +65,9 @@ class AnuncioPage extends React.Component {
 	render() {
 		return (
 			<Layout title='Anuncio Detalle'>
-				<div className='AnuncioPage'>{this.renderContent()}</div>
+				<div className='AnuncioPage'>
+					{this.renderContent()}
+				</div>
 				<Container>
 					<ConfirmButton
 						name='delete'
