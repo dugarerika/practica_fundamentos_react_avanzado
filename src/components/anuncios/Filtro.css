@@ -1,0 +1,78 @@
+.container-consultar-anuncio {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color: #ffffff;
+	width: 600px;
+	padding: 16px;
+	margin-top: 0;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-bottom: 40px;
+	min-height: calc(100vh - 128px);
+}
+
+.input-consulta-name {
+	align-self: center;
+	width: 400px;
+	padding-left: 10px;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+.input-consulta-price {
+	align-self: center;
+	width: 400px;
+	padding-left: 10px;
+	margin-top: 0px;
+	margin-left: 18px;
+}
+
+.checkboxs-consulta-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	outline: none;
+	color: #777;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 80px;
+	margin-left: 18px;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+	width: max-content;
+	height: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: space-around;
+}
+
+.consulta-anuncio-button {
+	width: 500px;
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+
+	height: 30px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	background-color: #acd6ef; /*IE fallback*/
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(#acd6ef),
+		to(#6ec2e8)
+	);
+	background-image: -moz-linear-gradient(
+		top left 90deg,
+		#acd6ef 0%,
+		#6ec2e8 100%
+	);
+
+	border-radius: 30px;
+	border: 1px solid #66add6;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+	cursor: pointer;
+}

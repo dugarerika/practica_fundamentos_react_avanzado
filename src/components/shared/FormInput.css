@@ -1,0 +1,190 @@
+.formInput-label {
+	margin-top: 50px;
+	background-color: rgb(245, 248, 250);
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-color: rgb(101, 119, 134);
+	border-radius: 2px;
+	color: rgb(101, 119, 134);
+	display: flex;
+	flex-direction: column;
+	transition: all 0.2s;
+}
+.formInput-input {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	outline: none;
+	background-color: transparent;
+	font-size: 20px;
+	outline-style: none;
+	padding: 2px 10px 5px 10px;
+	width: 100%;
+	color: #777;
+	margin: 10px;
+	margin-top: 0px;
+	margin-left: 0px;
+	width: 270px;
+	height: 35px;
+	border: 1px solid #c7d0d2;
+	border-radius: 2px;
+	box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #f5f7f8;
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	transition: all .4s ease;
+}
+.formInput-label span {
+	padding: 5px 120px 10 10px;
+	display: inline-block;
+	margin-top: 10px;
+	width: 270px;
+}
+.formInput-label span:first-letter {
+	text-transform: capitalize;
+}
+.formInput--focused .formInput-label {
+	color: rgb(29, 161, 242);
+	border-color: rgb(29, 161, 242);
+}
+
+.formInput {
+	margin-top: 0px;
+}
+
+span {
+	background-color: transparent;
+}
+
+.form-new-anuncio {
+	text-align: center;
+	display: inline-flexbox;
+	align-items: center;
+	align-self: center;
+	width: 340px;
+	height: 500px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background: transparent;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+.input-new-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	outline: none;
+	color: #777;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 0px;
+	margin-left: 18px;
+	width: 270px;
+	height: 30px;
+}
+
+#loweranuncio {
+	width: 340px;
+	height: 69px;
+	margin-top: 89px;
+	margin-bottom: 0px;
+	background: #ecf2f5;
+
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	-webkit-animation-name: bounceIn;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: bounceIn;
+	-moz-animation-fill-mode: both;
+	-moz-animation-duration: 1s;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: linear;
+	animation-name: bounceIn;
+	animation-fill-mode: both;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+}
+
+.radio-input-new-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	outline: none;
+	color: #777;
+	padding-left: 10px;
+	margin: 15px;
+	margin-top: 50px;
+	margin-left: 18px;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+	width: 270px;
+	height: 0px;
+}
+
+.checkboxs-new-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 12px;
+	outline: none;
+	color: #777;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 80px;
+	margin-left: 18px;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+	width: 270px;
+	height: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: space-around;
+}
+
+.checkbox-input-new-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+
+	/* padding-left: 10px; */
+	/* margin: 15px; */
+	margin-top: 5px;
+	/* margin-left: 18px; */
+	/* /* margin-bottom: 0px; 
+	border-bottom: 0px; */
+	width: 27px;
+	/* height: 0px; */
+}
+
+.new-anuncio {
+	display: inline-grid;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-content: space-around;
+}
+
+.Currencyinput-new-anuncio {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 20px;
+	outline: none;
+	color: #777;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 0px;
+	margin-left: 18px;
+	width: 100px;
+	height: 30px;
+}
+.currency {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	outline: none;
+	color: none;
+	padding-left: 10px;
+	margin: 0px;
+	margin-top: 0px;
+	margin-left: 18px;
+	width: 270px;
+	height: 30px;
+}
