@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import {
 	deleteDetalleAnuncio,
 	getDetalleAnuncio
@@ -10,14 +9,9 @@ import Imagen from '../shared/Imagen';
 import './Anuncio.css';
 import ConfirmButton from '../shared/ConfirmButton';
 import Container from '../shared/Container';
+import withDataLoad from '../../hocs/withDataLoads';
 
 class AnuncioPage extends React.Component {
-	state = {
-		anuncio: null,
-		error: null,
-		isFectching: false
-	};
-
 	deleteDetalle = () => {
 		const { history } = this.props;
 		const { anuncioID } = this.props.match.params;
@@ -26,36 +20,17 @@ class AnuncioPage extends React.Component {
 			.catch((error) => this.setState({ error }));
 	};
 
-	getDetalle = async () => {
-		const { anuncioID } = this.props.match.params;
-		this.setState({ isFectching: true });
-		getDetalleAnuncio(anuncioID)
-			.then((anuncio) => this.setState({ anuncio }))
-			.catch((error) => this.setState({ error }))
-			.finally(() => this.setState({ isFectching: false }));
-	};
-
-	componentDidMount() {
-		this.getDetalle();
-	}
-
 	renderContent() {
 		const { history } = this.props;
-		const { anuncio, error } = this.state;
-		if (error) {
-			return <Redirect to='/404' />;
-		}
-		if (!anuncio) {
-			return null;
-		}
+		const { data: anuncio } = this.props;
 		return (
 			<div className='anuncio'>
 				<div className='left'>
-					<Imagen src={anuncio.result.photo} />
+					<Imagen src={anuncio.data.result.photo} />
 				</div>
 				<Anuncio
-					key={anuncio._id}
-					anuncio={anuncio.result}
+					key={anuncio.data._id}
+					anuncio={anuncio.data.result}
 					history={history}
 				/>
 			</div>
@@ -81,4 +56,8 @@ class AnuncioPage extends React.Component {
 	}
 }
 
-export default AnuncioPage;
+const AnuncioPageWithDataLoad = withDataLoad(
+	AnuncioPage,
+	(props) => getDetalleAnuncio(props.match.params.anuncioID)
+);
+export default AnuncioPageWithDataLoad;
