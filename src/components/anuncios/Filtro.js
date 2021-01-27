@@ -58,7 +58,9 @@ class Filtro extends React.Component {
 		const filter = this.axiosParams(credentials);
 
 		try {
-			const generatedAnuncios = getFilterAnuncios(filter);
+			const generatedAnuncios = await getFilterAnuncios(
+				filter
+			);
 			console.log(generatedAnuncios.results);
 			onfilter(generatedAnuncios, () =>
 				history.push('/anuncios')
