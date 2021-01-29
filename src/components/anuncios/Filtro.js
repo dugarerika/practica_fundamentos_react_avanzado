@@ -50,7 +50,7 @@ class Filtro extends React.Component {
 
 		try {
 			const generatedAnuncios = await getFilterAnuncios(filter);
-			console.log(generatedAnuncios.results);
+			console.log(generatedAnuncios);
 			onfilter(generatedAnuncios, () => history.push('/anuncios'));
 		} catch (error) {
 			console.log('memandaron al error');

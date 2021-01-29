@@ -1,34 +1,18 @@
 import React from 'react';
 import Filtro from '../anuncios/Filtro';
 import { getFilterAnuncios } from '../../API/anuncios';
+import withDataLoad from '../../hocs/withDataLoads';
 
-import Anuncio from '../anuncios/Anuncio';
+// import Anuncio from '../anuncios/Anuncio';
 import Layout from '../layout/Layout';
 class AnunciosPage extends React.Component {
-	state = {
-		anuncios: null,
-		generatedAnuncio: null
-	};
-
-	getAnuncios = async (filter) => {
-		const resp = await getFilterAnuncios(filter);
-		console.log(resp);
-		this.setState({ anuncios: resp.result.rows });
-	};
-
-	handlefilter = (generatedAnuncio) =>
+	handlefilter = (generatedAnuncios) =>
 		this.setState({
-			anuncios: generatedAnuncio.result.rows
+			anuncios: generatedAnuncios
 		});
-
-	async componentDidMount() {
-		this.getAnuncios();
-	}
 
 	renderFiltro() {
 		const { history } = this.props;
-		const { generatedAnuncios } = this.state;
-		console.log(generatedAnuncios);
 
 		return (
 			<Filtro
@@ -39,12 +23,9 @@ class AnunciosPage extends React.Component {
 	}
 
 	renderContent() {
-		const { history } = this.props;
-		const { anuncios } = this.state;
-		console.log(anuncios);
-		if (!anuncios) {
-			return null;
-		}
+		// const { history } = this.props;
+		const { data: anuncios } = this.props;
+		console.log(anuncios.data);
 
 		if (anuncios.length === 0) {
 			return (
@@ -54,17 +35,16 @@ class AnunciosPage extends React.Component {
 			);
 		}
 
-		return anuncios.map((anuncio) => (
-			<Anuncio
-				key={anuncio._id}
-				anuncio={anuncio}
-				history={history}
-			/>
-		));
+		// return anuncios.map((anuncio) => (
+		// 	<Anuncio
+		// 		key={anuncio._id}
+		// 		anuncio={anuncio}
+		// 		history={history}
+		// 	/>
+		// ));
 	}
 
 	render() {
-		console.log(this.state.anuncios);
 		return (
 			<Layout title='Lista de Anuncios'>
 				<div className='AnunciosPage'>
@@ -78,4 +58,14 @@ class AnunciosPage extends React.Component {
 	}
 }
 
-export default AnunciosPage;
+const config = {
+	getData: (props) => getFilterAnuncios()
+};
+
+const withDataLoadConfigured = withDataLoad(config);
+
+const AnunciosPageWithDataLoad = withDataLoadConfigured(
+	AnunciosPage
+);
+
+export default AnunciosPageWithDataLoad;

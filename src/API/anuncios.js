@@ -23,7 +23,6 @@ export const deleteDetalleAnuncio = (anuncioID) => {
 };
 
 export const getFilterAnuncios = (filter) => {
-	console.log(filter);
 	const url = `${anuncioBaseUrl}/adverts`;
 	return client.get(url, { params: filter });
 };
