@@ -23,6 +23,7 @@ class AnuncioPage extends React.Component {
 	renderContent() {
 		const { history } = this.props;
 		const { data: anuncio } = this.props;
+		console.log(anuncio);
 		return (
 			<div className='anuncio'>
 				<div className='left'>
@@ -56,8 +57,15 @@ class AnuncioPage extends React.Component {
 	}
 }
 
-const AnuncioPageWithDataLoad = withDataLoad(
-	AnuncioPage,
-	(props) => getDetalleAnuncio(props.match.params.anuncioID)
+const config = {
+	getData: (props) =>
+		getDetalleAnuncio(props.match.params.anuncioID)
+};
+
+const withDataLoadConfigured = withDataLoad(config);
+
+const AnuncioPageWithDataLoad = withDataLoadConfigured(
+	AnuncioPage
 );
+
 export default AnuncioPageWithDataLoad;
