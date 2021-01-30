@@ -23,7 +23,6 @@ class AnuncioPage extends React.Component {
 	renderContent() {
 		const { history } = this.props;
 		const { data: anuncio } = this.props;
-		console.log(anuncio);
 		return (
 			<div className='anuncio'>
 				<div className='left'>

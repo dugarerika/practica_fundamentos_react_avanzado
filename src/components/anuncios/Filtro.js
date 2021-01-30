@@ -28,7 +28,6 @@ class Filtro extends React.Component {
 	axiosParams = (credentials) => {
 		const params = new URLSearchParams();
 
-
 			credentials.price !==
 			[
 				0,
@@ -58,15 +57,11 @@ class Filtro extends React.Component {
 		try {
 			const generated = await getFilterAnuncios(filter);
 
-			console.log(generated);
 			onfilter(generated, () => history.push('/anuncios'));
-		} catch (error) {
-			console.log(error);
-		}
+		} catch (error) {}
 	};
 
 	handleSlider = (event) => {
-		console.log(event);
 		this.setState((state) => ({
 			query: { ...state.query, price: event }
 		}));
@@ -99,7 +94,6 @@ class Filtro extends React.Component {
 				}
 			}));
 		}
-		console.log(tags);
 	};
 
 	render() {

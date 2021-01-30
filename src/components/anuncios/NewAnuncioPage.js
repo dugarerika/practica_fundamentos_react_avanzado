@@ -23,7 +23,6 @@ class NewAnuncioPage extends React.Component {
 		const { history } = this.props;
 		const { form: credentials } = this.state;
 		event.preventDefault();
-		console.log(credentials.photo);
 		formData.append('photo', credentials.photo.name);
 		formData.append('name', credentials.name);
 		formData.append('price', credentials.price);
@@ -31,30 +30,22 @@ class NewAnuncioPage extends React.Component {
 		credentials.tags.map((tag) =>
 			formData.append('tags', tag)
 		);
-
-		console.log(credentials.photo);
 		try {
 			const createdAnuncio = await createAnuncio(formData);
-			console.log(createdAnuncio);
 			history.push(`/anuncio/${createdAnuncio.result._id}`);
 		} catch (error) {}
 	};
 
 	handleCheck = (event) => {
-		console.log(event.target);
 		const { form: { tags } } = this.state;
 		const target = event.target;
 		const value = target.value;
-		console.log(target.checked);
 		if (target.checked) {
 			this.setState((state) => ({
 				form: { ...state.form, tags: tags.concat(value) }
 			}));
 		}
 		else {
-			console.log(tags);
-			const id = tags.indexOf(value);
-			console.log(id);
 			this.setState((state) => ({
 				form: {
 					...state.form,
@@ -62,11 +53,9 @@ class NewAnuncioPage extends React.Component {
 				}
 			}));
 		}
-		console.log(tags);
 	};
 
 	handleImage = (event) => {
-		console.log(event.target.files[0]);
 		try {
 			this.setState((state) => ({
 				form: {
@@ -74,14 +63,12 @@ class NewAnuncioPage extends React.Component {
 					photo: event.target.files[0]
 				}
 			}));
-			console.log(this.photo);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	handleChange = async (event) => {
-		console.log(event.target);
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
@@ -96,7 +83,7 @@ class NewAnuncioPage extends React.Component {
 	};
 
 	render() {
-		const { form: { name, price, photo } } = this.state;
+		const { form: { name, price } } = this.state;
 		return (
 			<Layout title='Crea un nuevo anuncio'>
 				<div className='form-new-anuncio'>

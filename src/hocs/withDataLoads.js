@@ -45,8 +45,6 @@ function withDataLoad({ getData }) {
 				return null;
 			}
 
-			console.log(data);
-
 			return (
 				<WrappedComponent
 					data={data}
