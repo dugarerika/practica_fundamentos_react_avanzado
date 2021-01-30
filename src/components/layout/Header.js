@@ -7,11 +7,24 @@ import { ReactComponent as Icon } from '../images/shopping-cart.svg';
 import { logout } from '../../API/auth';
 import { AuthContextConsumer } from '../auth/context';
 
-const Header = ({ className, isLogged, onLogout, ...props }) => (
-	<header className={classNames('header', className)} {...props}>
-		<div className='header-logo'>{<Icon width='32' height='32' />}</div>
+const Header = ({
+	className,
+	isLogged,
+	onLogout,
+	...props
+}) => (
+	<header
+		className={classNames('header', className)}
+		{...props}>
+		<div className='header-logo'>
+			{<Icon width='32' height='32' />}
+		</div>
 		<nav className='header-nav-anuncio'>
-			<Button as={Link} to='/' variant='primary' className='header-button'>
+			<Button
+				as={Link}
+				to='/'
+				variant='primary'
+				className='header-button'>
 				Anuncios
 			</Button>
 			<Button
@@ -31,7 +44,10 @@ const Header = ({ className, isLogged, onLogout, ...props }) => (
 					onClick={() => logout(onLogout)}>
 					Logout
 				</Button> :
-				<Button as={Link} to='/login' className='header-button'>
+				<Button
+					as={Link}
+					to='/login'
+					className='header-button'>
 					Login
 				</Button>}
 		</nav>
@@ -41,7 +57,11 @@ const Header = ({ className, isLogged, onLogout, ...props }) => (
 const ConnectedToAuthHeader = (props) => (
 	<AuthContextConsumer>
 		{({ isLogged, onLogout }) => (
-			<Header {...props} isLogged={isLogged} onLogout={onLogout} />
+			<Header
+				{...props}
+				isLogged={isLogged}
+				onLogout={onLogout}
+			/>
 		)}
 	</AuthContextConsumer>
 );

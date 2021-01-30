@@ -17,7 +17,8 @@ class App extends React.Component {
 	};
 
 	handleLogout = () => this.state({ loggedUser: false });
-	handleLogin = (loggedUser, cb) => this.setState({ loggedUser }, cb);
+	handleLogin = (loggedUser, cb) =>
+		this.setState({ loggedUser }, cb);
 
 	componentDidMount() {}
 
@@ -41,9 +42,16 @@ class App extends React.Component {
 								/>
 							)}
 						</Route>
-						<ProtectedRoute path='/anuncios/tags' exact component={Tags} />
-						<ProtectedRoute path='/' exact component={AnunciosPage} />
-						<ProtectedRoute path='/anuncios' exact component={AnunciosPage} />
+						<ProtectedRoute
+							path='/anuncios/tags'
+							exact
+							component={Tags}
+						/>
+						<ProtectedRoute
+							path='/anuncios'
+							exact
+							component={AnunciosPage}
+						/>
 						<ProtectedRoute
 							path='/anuncio/new'
 							exact
@@ -56,11 +64,19 @@ class App extends React.Component {
 						/>
 						<Route path='/login' exact>
 							{({ history }) => (
-								<LoginPage onLogin={this.handleLogin} history={history} />
+								<LoginPage
+									onLogin={this.handleLogin}
+									history={history}
+								/>
 							)}
 						</Route>
 						<Route path='/404' exact>
-							<div style={{ textAlign: 'center', fontSize: 48, fontWeight: 3 }}>
+							<div
+								style={{
+									textAlign: 'center',
+									fontSize: 48,
+									fontWeight: 3
+								}}>
 								404 Not Found
 							</div>
 						</Route>

@@ -1,6 +1,10 @@
 import React from 'react';
 import Layout from '../layout';
-import { AnuncioInput, Button, FormCheckboxes } from '../shared/index';
+import {
+	AnuncioInput,
+	Button,
+	FormCheckboxes
+} from '../shared/index';
 import { createAnuncio } from '../../API/anuncios';
 
 class NewAnuncioPage extends React.Component {
@@ -24,7 +28,9 @@ class NewAnuncioPage extends React.Component {
 		formData.append('name', credentials.name);
 		formData.append('price', credentials.price);
 		formData.append('sale', credentials.sale);
-		credentials.tags.map((tag) => formData.append('tags', tag));
+		credentials.tags.map((tag) =>
+			formData.append('tags', tag)
+		);
 
 		console.log(this.state.photo);
 		try {
@@ -50,7 +56,10 @@ class NewAnuncioPage extends React.Component {
 			const id = tags.indexOf(value);
 			console.log(id);
 			this.setState((state) => ({
-				form: { ...state.form, tags: tags.filter((item) => item !== value) }
+				form: {
+					...state.form,
+					tags: tags.filter((item) => item !== value)
+				}
 			}));
 		}
 		console.log(tags);
@@ -93,8 +102,24 @@ class NewAnuncioPage extends React.Component {
 						<div
 							className='radio-input-new-anuncio'
 							onChange={this.handleChange}>
-							<input type='radio' value={false} name='sale' /> Compra
-							<input type='radio' value={true} name='sale' /> Venta
+							<input
+								type='radio'
+								value={false}
+								name='sale'
+							/>{' '}
+							Compra
+							<input
+								type='radio'
+								value={true}
+								name='sale'
+							/>{' '}
+							Venta
+							<input
+								type='radio'
+								value=''
+								name='sale'
+							/>{' '}
+							Ambos
 						</div>
 						<AnuncioInput
 							className='input-new-anuncio'
@@ -123,7 +148,9 @@ class NewAnuncioPage extends React.Component {
 							/>
 						</div>
 						<div id='loweranuncio'>
-							<Button type='submit' disabled={!this.couldSubmit()}>
+							<Button
+								type='submit'
+								disabled={!this.couldSubmit()}>
 								Crear
 							</Button>
 						</div>
