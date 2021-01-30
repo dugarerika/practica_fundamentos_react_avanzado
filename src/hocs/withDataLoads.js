@@ -6,7 +6,15 @@ import React from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-function withDataLoad({ getData }) {
+function getDisplayName(WrappedComponent) {
+	return (
+		WrappedComponent.displayName ||
+		WrappedComponent.name ||
+		'Component'
+	);
+}
+
+function withDataLoad({ getData, propName = 'data' }) {
 	return function(WrappedComponent) {
 		const ComponentWithDataLoad = (props) => {
 			const [
@@ -45,13 +53,8 @@ function withDataLoad({ getData }) {
 				return null;
 			}
 
-			return (
-				<WrappedComponent
-					data={data}
-					setData={setData}
-					{...props}
-				/>
-			);
+			const newProps = { [propName]: data, setData };
+			return <WrappedComponent {...newProps} {...props} />;
 		};
 
 		ComponentWithDataLoad.displayName = `WithDataLoad(${getDisplayName(

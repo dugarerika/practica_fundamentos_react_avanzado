@@ -22,7 +22,7 @@ class AnuncioPage extends React.Component {
 
 	renderContent() {
 		const { history } = this.props;
-		const { data: anuncio } = this.props;
+		const { anuncio } = this.props;
 		return (
 			<div className='anuncio'>
 				<div className='left'>
@@ -58,7 +58,8 @@ class AnuncioPage extends React.Component {
 
 const config = {
 	getData: (props) =>
-		getDetalleAnuncio(props.match.params.anuncioID)
+		getDetalleAnuncio(props.match.params.anuncioID),
+	propName: 'anuncio'
 };
 
 const withDataLoadConfigured = withDataLoad(config);

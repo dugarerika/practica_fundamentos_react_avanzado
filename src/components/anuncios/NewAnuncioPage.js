@@ -69,6 +69,7 @@ class NewAnuncioPage extends React.Component {
 	};
 
 	handleChange = async (event) => {
+		console.log(event.value);
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
@@ -83,7 +84,7 @@ class NewAnuncioPage extends React.Component {
 	};
 
 	render() {
-		const { form: { name, price } } = this.state;
+		const { form: { name, price, sale } } = this.state;
 		return (
 			<Layout title='Crea un nuevo anuncio'>
 				<div className='form-new-anuncio'>
@@ -103,20 +104,14 @@ class NewAnuncioPage extends React.Component {
 								type='radio'
 								value={false}
 								name='sale'
-							/>{' '}
+							/>
 							Compra
 							<input
 								type='radio'
 								value={true}
 								name='sale'
-							/>{' '}
+							/>
 							Venta
-							<input
-								type='radio'
-								value=''
-								name='sale'
-							/>{' '}
-							Ambos
 						</div>
 						<AnuncioInput
 							className='input-new-anuncio'

@@ -7,6 +7,7 @@ import Anuncio from '../anuncios/Anuncio';
 import Layout from '../layout/Layout';
 class AnunciosPage extends React.Component {
 	handlefilter = (generatedAnuncios) => {
+		console.log(generatedAnuncios);
 		const { setData } = this.props;
 		setData({
 			data: generatedAnuncios
@@ -61,7 +62,8 @@ class AnunciosPage extends React.Component {
 }
 
 const config = {
-	getData: (props) => getFilterAnuncios()
+	getData: (props) => getFilterAnuncios(),
+	propName: 'data'
 };
 
 const withDataLoadConfigured = withDataLoad(config);
