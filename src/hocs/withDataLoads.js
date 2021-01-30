@@ -54,6 +54,10 @@ function withDataLoad({ getData }) {
 			);
 		};
 
+		ComponentWithDataLoad.displayName = `WithDataLoad(${getDisplayName(
+			WrappedComponent
+		)})`;
+
 		return ComponentWithDataLoad;
 	};
 }
