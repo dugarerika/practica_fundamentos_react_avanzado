@@ -3,13 +3,15 @@ import Filtro from '../anuncios/Filtro';
 import { getFilterAnuncios } from '../../API/anuncios';
 import withDataLoad from '../../hocs/withDataLoads';
 
-// import Anuncio from '../anuncios/Anuncio';
+import Anuncio from '../anuncios/Anuncio';
 import Layout from '../layout/Layout';
 class AnunciosPage extends React.Component {
-	handlefilter = (generatedAnuncios) =>
-		this.setState({
-			anuncios: generatedAnuncios
+	handlefilter = (generatedAnuncios) => {
+		const { setData } = this.props;
+		setData({
+			data: generatedAnuncios
 		});
+	};
 
 	renderFiltro() {
 		const { history } = this.props;
@@ -23,10 +25,10 @@ class AnunciosPage extends React.Component {
 	}
 
 	renderContent() {
-		// const { history } = this.props;
-		const { data: anuncios } = this.props;
-		console.log(anuncios.data);
-
+		const { history } = this.props;
+		const { data } = this.props;
+		console.log(data);
+		const anuncios = data.data.result.rows;
 		if (anuncios.length === 0) {
 			return (
 				<span className='mensaje'>
@@ -35,13 +37,13 @@ class AnunciosPage extends React.Component {
 			);
 		}
 
-		// return anuncios.map((anuncio) => (
-		// 	<Anuncio
-		// 		key={anuncio._id}
-		// 		anuncio={anuncio}
-		// 		history={history}
-		// 	/>
-		// ));
+		return anuncios.map((anuncio) => (
+			<Anuncio
+				key={anuncio._id}
+				anuncio={anuncio}
+				history={history}
+			/>
+		));
 	}
 
 	render() {

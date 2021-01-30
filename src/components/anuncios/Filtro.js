@@ -1,11 +1,15 @@
 import React from 'react';
-import { AnuncioInput, FormCheckboxes } from '../shared/index';
+import {
+	AnuncioInput,
+	FormCheckboxes
+} from '../shared/index';
 import '../anuncios/Filtro.css';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import { getFilterAnuncios } from '../../API/anuncios';
 import Slider from 'rc-slider';
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const createSliderWithTooltip =
+	Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 class Filtro extends React.Component {
@@ -34,10 +38,13 @@ class Filtro extends React.Component {
 				`${credentials.price[0]}-${credentials.price[1]}`
 			) :
 			params.append('price', 0);
-		credentials.name !== '' && params.append('name', credentials.name);
-		credentials.sale !== '' && params.append('sale', credentials.sale);
-		credentials.tags.length !== 0 && params.append('tags', credentials.tags);
-		console.log(`${credentials.price[0]}-${credentials.price[1]}`);
+		credentials.name !== '' &&
+			params.append('name', credentials.name);
+		credentials.sale !== '' &&
+			params.append('sale', credentials.sale);
+		credentials.tags.length !== 0 &&
+			params.append('tags', credentials.tags);
+
 		return params;
 	};
 
@@ -45,15 +52,16 @@ class Filtro extends React.Component {
 		const { onfilter, history } = this.props;
 		const { query: credentials } = this.state;
 		event.preventDefault();
-		console.log(credentials);
+
 		const filter = this.axiosParams(credentials);
 
 		try {
-			const generatedAnuncios = await getFilterAnuncios(filter);
-			console.log(generatedAnuncios);
-			onfilter(generatedAnuncios, () => history.push('/anuncios'));
+			const generated = await getFilterAnuncios(filter);
+
+			console.log(generated);
+			onfilter(generated, () => history.push('/anuncios'));
 		} catch (error) {
-			console.log('memandaron al error');
+			console.log(error);
 		}
 	};
 
@@ -85,7 +93,10 @@ class Filtro extends React.Component {
 		}
 		else {
 			this.setState((state) => ({
-				query: { ...state.query, tags: tags.filter((item) => item !== value) }
+				query: {
+					...state.query,
+					tags: tags.filter((item) => item !== value)
+				}
 			}));
 		}
 		console.log(tags);
@@ -94,52 +105,64 @@ class Filtro extends React.Component {
 	render() {
 		const { query: { name, price } } = this.state;
 		return (
-			<>
-				<form
-					className='container-consultar-anuncio'
-					onSubmit={this.handleSubmit}>
-					Filtrar Anuncios
-					<div className='input-consulta-name'>
-						<AnuncioInput
-							className='input-new-anuncio'
-							name='name'
-							label='name'
-							type='text'
-							value={name}
-							onChange={this.handleChange}
-						/>
-					</div>
-					<div className='radio-input-new-anuncio' onChange={this.handleChange}>
-						<input type='radio' value={false} name='sale' /> Compra
-						<input type='radio' value={true} name='sale' /> Venta
-					</div>
-					<div className='input-consulta-price'>
-						{price[0]} - {price[1]}
-						<Range
-							min={0}
-							max={1000}
-							onChange={this.handleSlider}
-							defaultValue={price}
-							tipFormatter={(value) => (
-								<span className='tooltip'>{value}€</span>
-							)}
-						/>
-					</div>
-					<div className='checkboxs-consulta-anuncio'>
-						<FormCheckboxes
-							className='checkbox-input-new-anuncio'
-							name='tags'
-							label='tags'
-							onChange={this.handleCheck}
-						/>
-					</div>
-					<div id='lowerconsultaanuncio'>
-						<button type='submit' className='consulta-anuncio-button'>
-							consultar
-						</button>
-					</div>
-				</form>
-			</>
+			<form
+				className='container-consultar-anuncio'
+				onSubmit={this.handleSubmit}>
+				Filtrar Anuncios
+				<div className='input-consulta-name'>
+					<AnuncioInput
+						className='input-new-anuncio'
+						name='name'
+						label='name'
+						type='text'
+						value={name}
+						onChange={this.handleChange}
+					/>
+				</div>
+				<div
+					className='radio-input-new-anuncio'
+					onChange={this.handleChange}>
+					<input
+						type='radio'
+						value={false}
+						name='sale'
+					/>{' '}
+					Compra
+					<input
+						type='radio'
+						value={true}
+						name='sale'
+					/>{' '}
+					Venta
+				</div>
+				<div className='input-consulta-price'>
+					{price[0]} - {price[1]}
+					<Range
+						min={0}
+						max={1000}
+						onChange={this.handleSlider}
+						defaultValue={price}
+						tipFormatter={(value) => (
+							<span className='tooltip'>{value}€</span>
+						)}
+					/>
+				</div>
+				<div className='checkboxs-consulta-anuncio'>
+					<FormCheckboxes
+						className='checkbox-input-new-anuncio'
+						name='tags'
+						label='tags'
+						onChange={this.handleCheck}
+					/>
+				</div>
+				<div id='lowerconsultaanuncio'>
+					<button
+						type='submit'
+						className='consulta-anuncio-button'>
+						consultar
+					</button>
+				</div>
+			</form>
 		);
 	}
 }
