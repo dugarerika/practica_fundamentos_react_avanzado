@@ -31,7 +31,9 @@ class LoginPage extends React.Component {
 			console.log(loggedUser);
 			this.setState({ submmiting: false, error: null });
 			if (info.ok === false) throw info.error;
-			onLogin(loggedUser, () => history.push('/anuncios'));
+			onLogin(loggedUser).then(() =>
+				history.push('/anuncios')
+			);
 		} catch (error) {
 			console.log('memandaron al error');
 			this.setState({ submmiting: false, error });
@@ -52,12 +54,18 @@ class LoginPage extends React.Component {
 	handleChange = (event) => {
 		console.log(event.target.value);
 		this.setState((state) => ({
-			form: { ...state.form, [event.target.name]: event.target.value }
+			form: {
+				...state.form,
+				[event.target.name]: event.target.value
+			}
 		}));
 	};
 
 	couldSubmit = () => {
-		const { form: { email, password }, submmiting } = this.state;
+		const {
+			form: { email, password },
+			submmiting
+		} = this.state;
 		return !submmiting && email && password;
 	};
 
@@ -104,7 +112,9 @@ class LoginPage extends React.Component {
 							disabled={!this.couldSubmit()}>
 							Log In
 						</Button>
-						{error && <div className='loginPage-error'>{error}</div>}
+						{error && (
+							<div className='loginPage-error'>{error}</div>
+						)}
 					</div>
 				</form>
 			</div>

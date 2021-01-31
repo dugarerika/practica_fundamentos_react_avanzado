@@ -6,6 +6,7 @@ const reducer = (state = initialState, action) => {
 		case types.AUTH_LOGIN:
 			//login
 			return { ...state, auth: action.payload.loggedUser };
+		//return Object.assign({}, state,{auth:action.payload.loggedUser})
 		case types.AUTH_LOGOUT:
 			//logout
 			return { ...state, auth: null };

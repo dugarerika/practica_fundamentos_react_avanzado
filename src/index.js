@@ -5,7 +5,6 @@ import App, { Root } from './components/App';
 import storage from './utils/storage';
 import { configuraClient } from './API/client';
 import { configureStore } from './store';
-import { authLogin } from './store/actions';
 
 const auth = storage.get('auth') || {
 	ok: false,
@@ -15,9 +14,6 @@ const auth = storage.get('auth') || {
 configuraClient(auth.token);
 
 const store = configureStore();
-console.log(store);
-store.dispatch(authLogin('id'));
-// console.log(store.getState());
 
 ReactDOM.render(
 	<Root>
