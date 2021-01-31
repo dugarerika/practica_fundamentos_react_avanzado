@@ -20,13 +20,14 @@ class Filtro extends React.Component {
 				0,
 				0
 			],
-			sale: '',
+			sale: 'both',
 			tags: []
 		}
 	};
 
 	axiosParams = (credentials) => {
 		const params = new URLSearchParams();
+
 
 			credentials.price !==
 			[
@@ -39,7 +40,7 @@ class Filtro extends React.Component {
 			params.append('price', 0);
 		credentials.name !== '' &&
 			params.append('name', credentials.name);
-		credentials.sale !== '' &&
+		credentials.sale !== 'both' &&
 			params.append('sale', credentials.sale);
 		credentials.tags.length !== 0 &&
 			params.append('tags', credentials.tags);
@@ -128,6 +129,12 @@ class Filtro extends React.Component {
 						name='sale'
 					/>{' '}
 					Venta
+					<input
+						type='radio'
+						value='both'
+						name='sale'
+					/>{' '}
+					Ambos
 				</div>
 				<div className='input-consulta-price'>
 					{price[0]} - {price[1]}
