@@ -1,3 +1,3 @@
-import App from './App';
+export { default } from './App';
 
-export default App;
+export { default as Root } from './Root';

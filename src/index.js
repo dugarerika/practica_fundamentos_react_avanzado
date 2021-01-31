@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
+import App, { Root } from './components/App';
 import storage from './utils/storage';
 import { configuraClient } from './API/client';
-import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from './store';
+import { authLogin } from './store/actions';
 
 const auth = storage.get('auth') || {
 	ok: false,
@@ -16,11 +16,12 @@ configuraClient(auth.token);
 
 const store = configureStore();
 console.log(store);
+store.dispatch(authLogin('id'));
+// console.log(store.getState());
 
-const Root = ({ children }) => {};
 ReactDOM.render(
-	<BrowserRouter>
+	<Root>
 		<App initialLogged={auth.ok} />
-	</BrowserRouter>,
+	</Root>,
 	document.getElementById('root')
 );

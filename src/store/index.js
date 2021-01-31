@@ -1,12 +1,12 @@
 import { createStore } from 'redux';
 import reducer from './reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export function configureStore(preloadedState) {
 	const store = createStore(
 		reducer,
 		preloadedState,
-		window.__REDUX_DEVTOOLS_EXTENSION__ &&
-			window.__REDUX_DEVTOOLS_EXTENSION__()
+		composeWithDevTools()
 	);
 	return store;
 }
