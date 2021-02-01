@@ -1,9 +1,11 @@
 import React from 'react';
-
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-const Root = ({ children }) => (
-	<BrowserRouter>{children}</BrowserRouter>
+const Root = ({ children, store }) => (
+	<Provider store={store}>
+		<BrowserRouter>{children}</BrowserRouter>
+	</Provider>
 );
 
 export default Root;

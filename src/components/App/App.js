@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import AnunciosPage from '../anuncios/AnunciosPage';
 import LoginPage from '../auth/LoginPage';
 import Tags from '../anuncios/Tags';
@@ -9,13 +9,13 @@ import NewAnuncioPage from '../anuncios/NewAnuncioPage';
 import ProtectedRoute from '../auth/ProtectedRouter';
 import { AuthContextProvider } from '../auth/context';
 import * as actions from '../../store/actions';
-function App({ dispatch, loggedUser }) {
+function App({ loggedUser, authLogin, authLogout }) {
 	const handleLogin = (loggedUser) =>
 		new Promise((resolve) => {
-			dispatch(actions.authLogin(loggedUser));
+			authLogin(loggedUser);
 			resolve();
 		});
-	const handleLogout = () => dispatch(actions.authLogout());
+	const handleLogout = () => authLogout();
 
 	return (
 		<AuthContextProvider
@@ -82,4 +82,19 @@ App.propTypes = {
 	initialLogged: T.bool
 };
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		loggedUser: state.auth
+	};
+};
+
+const mapDispatchProps = {
+	authLogin: actions.authLogin,
+	authLogout: actions.authLogout
+};
+
+const ConnectedApp = connect(
+	mapStateToProps,
+	mapDispatchProps
+)(App);
+export default ConnectedApp;

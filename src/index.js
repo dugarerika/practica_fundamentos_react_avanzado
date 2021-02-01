@@ -17,15 +17,11 @@ const store = configureStore({ auth: auth.ok });
 
 const render = () => {
 	ReactDOM.render(
-		<Root>
-			<App
-				dispatch={store.dispatch}
-				loggedUser={store.getState().auth}
-			/>
+		<Root store={store}>
+			<App />
 		</Root>,
 		document.getElementById('root')
 	);
 };
 
-store.subscribe(render);
 render();
