@@ -8,18 +8,14 @@ import AnuncioPage from '../anuncios/AnuncioPage';
 import NewAnuncioPage from '../anuncios/NewAnuncioPage';
 import ProtectedRoute from '../auth/ProtectedRouter';
 import { AuthContextProvider } from '../auth/context';
-function App({ initialLogged }) {
-	const [
-		loggedUser,
-		setLoggedUser
-	] = useState(initialLogged);
-
+import * as actions from '../../store/actions';
+function App({ dispatch, loggedUser }) {
 	const handleLogin = (loggedUser) =>
 		new Promise((resolve) => {
-			setLoggedUser(loggedUser);
+			dispatch(actions.authLogin(loggedUser));
 			resolve();
 		});
-	const handleLogout = () => setLoggedUser(null);
+	const handleLogout = () => dispatch(actions.authLogout());
 
 	return (
 		<AuthContextProvider

@@ -41,7 +41,7 @@ const Header = ({
 					as={Link}
 					to='/login'
 					className='header-button'
-					onClick={() => logout(onLogout)}>
+					onClick={() => logout().then(onLogout)}>
 					Logout
 				</Button> :
 				<Button

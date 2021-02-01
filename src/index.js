@@ -13,11 +13,19 @@ const auth = storage.get('auth') || {
 
 configuraClient(auth.token);
 
-const store = configureStore();
+const store = configureStore({ auth: auth.ok });
 
-ReactDOM.render(
-	<Root>
-		<App initialLogged={auth.ok} />
-	</Root>,
-	document.getElementById('root')
-);
+const render = () => {
+	ReactDOM.render(
+		<Root>
+			<App
+				dispatch={store.dispatch}
+				loggedUser={store.getState().auth}
+			/>
+		</Root>,
+		document.getElementById('root')
+	);
+};
+
+store.subscribe(render);
+render();
