@@ -1,7 +1,7 @@
 import * as types from './types';
 const initialState = { auth: null, anuncios: null };
 
-const auth = (state = initialState.auth, action) => {
+export const auth = (state = initialState.auth, action) => {
 	switch (action.type) {
 		case types.AUTH_LOGIN:
 			return action.payload.loggedUser;
@@ -14,7 +14,7 @@ const auth = (state = initialState.auth, action) => {
 	}
 };
 
-const anuncios = (
+export const anuncios = (
 	state = initialState.anuncios,
 	action
 ) => {
@@ -39,12 +39,3 @@ const anuncios = (
 			return state;
 	}
 };
-
-const reducer = (state, action) => {
-	return {
-		auth: auth(state.auth, action),
-		anuncios: anuncios(state.anuncios, action)
-	};
-};
-
-export default reducer;
