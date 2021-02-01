@@ -1,3 +1,4 @@
+import { getLoggedUserId } from '../../store/selectors';
 import { connect } from 'react-redux';
 import AnunciosPage from '../anuncios/AnunciosPage';
 import LoginPage from '../auth/LoginPage';
@@ -84,7 +85,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		loggedUser: state.auth
+		loggedUser: getLoggedUserId(state)
 	};
 };
 
