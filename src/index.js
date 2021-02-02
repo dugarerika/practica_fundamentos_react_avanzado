@@ -5,6 +5,7 @@ import App, { Root } from './components/App';
 import storage from './utils/storage';
 import { configuraClient } from './API/client';
 import { configureStore } from './store';
+// import { getLoggedUser } from './store/selectors';
 
 const auth = storage.get('auth') || {
 	ok: false,

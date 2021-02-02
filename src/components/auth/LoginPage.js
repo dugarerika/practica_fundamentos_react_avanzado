@@ -1,126 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginPage.css';
 import Button from '../shared/Button';
 import FormInput from '../shared/FormInput';
 import { login } from '../../API/auth';
 import T from 'prop-types';
+import { connect } from 'react-redux';
+import { authLogin } from '../../store/actions';
+import useForm from '../../hooks/useForm';
 
-class LoginPage extends React.Component {
-	state = {
-		form: {
-			email: '',
-			password: '',
-			RememberMe: false
-		},
-		submmiting: false,
-		error: null
-	};
+function LoginPage({ onLogin, history }) {
+	const [
+		form,
+		onChange,
+		onCheck
+	] = useForm({
+		email: '',
+		password: '',
+		RememberMe: false
+	});
 
-	handleSubmit = async (event) => {
-		const { onLogin, history } = this.props;
-		const { form: credentials } = this.state;
+	const [
+		submmitting,
+		setSubmitting
+	] = useState(false);
 
+	const [
+		error,
+		setError
+	] = useState(null);
+
+	const { email, password, RememberMe } = form;
+
+	const handleSubmit = async (event) => {
+		const credentials = form;
 		event.preventDefault();
-		console.log(event);
-		console.log(credentials);
-		this.setState({ submmiting: true });
+		setSubmitting(true);
 
 		try {
 			const info = await login(credentials);
 			const loggedUser = info.ok;
-			console.log(loggedUser);
-			this.setState({ submmiting: false, error: null });
+			setError(null);
 			if (info.ok === false) throw info.error;
 			onLogin(loggedUser).then(() =>
 				history.push('/anuncios')
 			);
 		} catch (error) {
-			console.log('memandaron al error');
-			this.setState({ submmiting: false, error });
+			setError(error);
+		} finally {
+			setSubmitting(false);
 		}
 	};
 
-	handleCheck = (event) => {
-		console.log(event.target);
-		const target = event.target;
-		const value = target.checked;
-		const name = target.name;
-
-		this.setState((state) => ({
-			form: { ...state.form, [name]: value }
-		}));
+	const couldSubmit = () => {
+		return !submmitting && email && password;
 	};
 
-	handleChange = (event) => {
-		console.log(event.target.value);
-		this.setState((state) => ({
-			form: {
-				...state.form,
-				[event.target.name]: event.target.value
-			}
-		}));
-	};
-
-	couldSubmit = () => {
-		const {
-			form: { email, password },
-			submmiting
-		} = this.state;
-		return !submmiting && email && password;
-	};
-
-	componentWillUnmount() {
-		console.log('componentWillUnmount');
-	}
-
-	render() {
-		const { form: { email, password }, error } = this.state;
-
-		return (
-			<div className='container'>
-				<form onSubmit={this.handleSubmit}>
-					<FormInput
-						name='email'
-						type='text'
-						label='phone, email or username'
-						className='loginPage-field'
-						value={email}
-						onChange={this.handleChange}
-					/>
-					<FormInput
-						name='password'
-						type='password'
-						label='password'
-						value={password}
-						className='loginPage-field'
-						onChange={this.handleChange}
-					/>
-					<div id='lower'>
-						<div className='loginPage-checkbox'>
-							<input
-								type='checkbox'
-								name='RememberMe'
-								onChange={this.handleCheck}
-								checked={this.state.RememberMe}
-							/>
-							<label>Remember me</label>
-						</div>
-						<Button
-							type='submit'
-							className='loginPage-submit'
-							variant='primary'
-							disabled={!this.couldSubmit()}>
-							Log In
-						</Button>
-						{error && (
-							<div className='loginPage-error'>{error}</div>
-						)}
+	return (
+		<div className='container'>
+			<form onSubmit={handleSubmit}>
+				<FormInput
+					name='email'
+					type='text'
+					label='phone, email or username'
+					className='loginPage-field'
+					value={email}
+					onChange={onChange}
+				/>
+				<FormInput
+					name='password'
+					type='password'
+					label='password'
+					value={password}
+					className='loginPage-field'
+					onChange={onChange}
+				/>
+				<div id='lower'>
+					<div className='loginPage-checkbox'>
+						<input
+							type='checkbox'
+							name='RememberMe'
+							onChange={onCheck}
+							checked={RememberMe}
+						/>
+						<label>Remember me</label>
 					</div>
-				</form>
-			</div>
-		);
-	}
+					<Button
+						type='submit'
+						className='loginPage-submit'
+						variant='primary'
+						disabled={!couldSubmit()}>
+						Log In
+					</Button>
+					{error && (
+						<div className='loginPage-error'>{error}</div>
+					)}
+				</div>
+			</form>
+		</div>
+	);
 }
 
 LoginPage.propTypes = { onLogin: T.func.isRequired };
-export default LoginPage;
+
+export default connect(null, (dispatch) => ({
+	onLogin: (loggedUser) =>
+		new Promise((resolve) => {
+			dispatch(authLogin(loggedUser));
+			resolve();
+		})
+}))(LoginPage);

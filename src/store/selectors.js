@@ -1,1 +1,1 @@
-export const getLoggedUserId = (state) => state.auth;
+export const getLoggedUser = (state) => state.auth;
