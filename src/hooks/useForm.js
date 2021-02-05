@@ -6,16 +6,16 @@ function useForm(initialForm) {
 		setForm
 	] = useState(initialForm);
 
-	const handleFormChange = (event) =>
+	const handleFormChange = (e) =>
 		setForm({
 			...form,
-			[event.target.name]: event.target.value
+			[e.target.name]: e.target.value
 		});
 
-	const handleFormCheck = (event) =>
+	const handleFormCheck = (e) =>
 		setForm({
 			...form,
-			[event.target.name]: event.target.checked
+			[e.target.name]: e.target.checked
 		});
 
 	return [

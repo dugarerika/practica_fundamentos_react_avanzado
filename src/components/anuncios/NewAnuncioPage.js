@@ -6,22 +6,28 @@ import {
 	FormCheckboxes
 } from '../shared/index';
 import { createAnuncio } from '../../API/anuncios';
+import useNewAnuncio from '../../hooks/useNewAnuncio';
+import { compose } from 'redux';
 
-class NewAnuncioPage extends React.Component {
-	state = {
-		form: {
-			name: '',
-			price: '',
-			sale: false,
-			photo: 'default-photo.jpg',
-			tags: []
-		}
-	};
+function NewAnuncioPage({ history }) {
+	const [
+		form,
+		onChange,
+		onCheck,
+		onImage
+	] = useNewAnuncio({
+		name: '',
+		price: '',
+		sale: false,
+		photo: 'default-photo.jpg',
+		tags: []
+	});
 
-	handleSubmit = async (event) => {
+	const { name, price, sale, tags } = form;
+
+	const handleSubmit = async (event) => {
 		const formData = new FormData();
-		const { history } = this.props;
-		const { form: credentials } = this.state;
+		const credentials = form;
 		event.preventDefault();
 		formData.append('photo', credentials.photo.name);
 		formData.append('name', credentials.name);
@@ -32,125 +38,72 @@ class NewAnuncioPage extends React.Component {
 		);
 		try {
 			const createdAnuncio = await createAnuncio(formData);
-			history.push(`/anuncio/${createdAnuncio.result._id}`);
+			const resultado = createdAnuncio.result;
+
+			console.log(resultado._id);
+			history.push(`/anuncio/${resultado._id}`);
 		} catch (error) {}
 	};
 
-	handleCheck = (event) => {
-		const { form: { tags } } = this.state;
-		const target = event.target;
-		const value = target.value;
-		if (target.checked) {
-			this.setState((state) => ({
-				form: { ...state.form, tags: tags.concat(value) }
-			}));
-		}
-		else {
-			this.setState((state) => ({
-				form: {
-					...state.form,
-					tags: tags.filter((item) => item !== value)
-				}
-			}));
-		}
-	};
-
-	handleImage = (event) => {
-		try {
-			this.setState((state) => ({
-				form: {
-					...state.form,
-					photo: event.target.files[0]
-				}
-			}));
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	handleChange = async (event) => {
-		console.log(event.value);
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		this.setState((state) => ({
-			form: { ...state.form, [name]: value }
-		}));
-	};
-
-	couldSubmit = () => {
-		const { form: { name, price, sale } } = this.state;
+	const couldSubmit = () => {
 		return name && price && sale;
 	};
 
-	render() {
-		const { form: { name, price, sale } } = this.state;
-		return (
-			<Layout title='Crea un nuevo anuncio'>
-				<div className='form-new-anuncio'>
-					<form onSubmit={this.handleSubmit}>
+	return (
+		<Layout title='Crea un nuevo anuncio'>
+			<div className='form-new-anuncio'>
+				<form onSubmit={handleSubmit}>
+					<AnuncioInput
+						className='input-new-anuncio'
+						name='name'
+						label='name'
+						type='text'
+						value={name}
+						onChange={onChange}
+					/>
+					<div
+						className='radio-input-new-anuncio'
+						onChange={onChange}>
+						<input type='radio' value={false} name='sale' />
+						Compra
+						<input type='radio' value={true} name='sale' />
+						Venta
+					</div>
+					<AnuncioInput
+						className='input-new-anuncio'
+						name='photo'
+						type='file'
+						label='Foto'
+						onChange={onImage}
+					/>
+					<div>
 						<AnuncioInput
+							min={0}
 							className='input-new-anuncio'
-							name='name'
-							label='name'
-							type='text'
-							value={name}
-							onChange={this.handleChange}
+							name='price'
+							type='number'
+							label='price €  Euro '
+							value={price}
+							onChange={onChange}
 						/>
-						<div
-							className='radio-input-new-anuncio'
-							onChange={this.handleChange}>
-							<input
-								type='radio'
-								value={false}
-								name='sale'
-							/>
-							Compra
-							<input
-								type='radio'
-								value={true}
-								name='sale'
-							/>
-							Venta
-						</div>
-						<AnuncioInput
-							className='input-new-anuncio'
-							name='photo'
-							type='file'
-							label='Foto'
-							onChange={this.handleImage}
+					</div>
+					<div className='checkboxs-new-anuncio '>
+						<FormCheckboxes
+							className='checkbox-input-new-anuncio'
+							name='tags'
+							onChange={onCheck}
+							value={tags}
 						/>
-						<div>
-							<AnuncioInput
-								min={0}
-								className='input-new-anuncio'
-								name='price'
-								type='number'
-								label='price €  Euro '
-								value={price}
-								onChange={this.handleChange}
-							/>
-						</div>
-						<div className='checkboxs-new-anuncio '>
-							<FormCheckboxes
-								className='checkbox-input-new-anuncio'
-								name='tags'
-								label='tags'
-								onChange={this.handleCheck}
-							/>
-						</div>
-						<div id='loweranuncio'>
-							<Button
-								type='submit'
-								disabled={!this.couldSubmit()}>
-								Crear
-							</Button>
-						</div>
-					</form>
-				</div>
-			</Layout>
-		);
-	}
+					</div>
+					<div id='loweranuncio'>
+						<Button type='submit' disabled={!couldSubmit()}>
+							Crear
+						</Button>
+					</div>
+				</form>
+			</div>
+		</Layout>
+	);
 }
 
 export default NewAnuncioPage;

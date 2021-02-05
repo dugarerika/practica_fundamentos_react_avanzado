@@ -7,7 +7,6 @@ import Anuncio from '../anuncios/Anuncio';
 import Layout from '../layout/Layout';
 class AnunciosPage extends React.Component {
 	handlefilter = (generatedAnuncios) => {
-		console.log(generatedAnuncios);
 		const { setData } = this.props;
 		setData({
 			data: generatedAnuncios
@@ -28,7 +27,6 @@ class AnunciosPage extends React.Component {
 	renderContent() {
 		const { history } = this.props;
 		const { data } = this.props;
-		console.log(data);
 		const anuncios = data.data.result.rows;
 		if (anuncios.length === 0) {
 			return (
