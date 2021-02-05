@@ -7,7 +7,6 @@ import {
 } from '../shared/index';
 import { createAnuncio } from '../../API/anuncios';
 import useNewAnuncio from '../../hooks/useNewAnuncio';
-import { compose } from 'redux';
 
 function NewAnuncioPage({ history }) {
 	const [

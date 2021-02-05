@@ -11,9 +11,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Switch>
-				<Route path='/' exact>
-					<AnunciosPage />}
-				</Route>
+				<Route path='/' exact component={AnunciosPage} />
 				<Route
 					path='/anuncios/tags'
 					exact
@@ -25,7 +23,9 @@ function App() {
 					component={AnunciosPage}
 				/>
 				<ProtectedRoute path='/anuncio/new' exact>
-					<NewAnuncioPage />
+					{({ history }) => (
+						<NewAnuncioPage history={history} />
+					)}
 				</ProtectedRoute>
 				<Route
 					path='/anuncio/:anuncioID'

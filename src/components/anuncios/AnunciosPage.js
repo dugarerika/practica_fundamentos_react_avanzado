@@ -60,7 +60,7 @@ class AnunciosPage extends React.Component {
 }
 
 const config = {
-	getData: (props) => getFilterAnuncios(),
+	getData: (props) => getFilterAnuncios(props),
 	propName: 'data'
 };
 

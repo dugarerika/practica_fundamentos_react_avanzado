@@ -3,7 +3,7 @@ import T from 'prop-types';
 
 import './Anuncio.css';
 
-const Anuncio = ({ anuncio, history }) => (
+const Anuncio = ({ key, anuncio, history }) => (
 	<article
 		className='anuncio'
 		onClick={() => history.push(`/anuncio/${anuncio._id}`)}>
@@ -17,13 +17,19 @@ const Anuncio = ({ anuncio, history }) => (
 			<div className='anuncio-cabecera'>
 				<h1 className='anuncio-nombre'>{anuncio.name}</h1>
 				<div className='anuncio-contenido'>
-					<span className='anuncio-venta'>{anuncio.sale}</span>
-					<span className='anuncio-precio'>{'Precio: €' + anuncio.price}</span>
+					<span className='anuncio-venta'>
+						{anuncio.sale}
+					</span>
+					<span className='anuncio-precio'>
+						{'Precio: €' + anuncio.price}
+					</span>
 					<span className='anuncio-etiquetas'>
 						Tags:
 						<ul className='anuncio-etiquetas-contenido'>
 							{anuncio.tags.map((tag) => (
-								<li key={anuncio.tags.indexOf(tag)}>{tag}</li>
+								<li key={anuncio.tags.indexOf(tag)}>
+									{tag}
+								</li>
 							))}
 						</ul>
 					</span>
